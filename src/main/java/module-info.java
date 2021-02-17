@@ -1,4 +1,4 @@
-module T.RAX.Main {
+module T.REX.Main {
     exports world.ucode;
     requires javafx.controls;
     requires javafx.graphics;
