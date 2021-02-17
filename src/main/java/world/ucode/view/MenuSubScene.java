@@ -24,7 +24,7 @@ public class MenuSubScene extends SubScene {
     }
 
     private void initSubScene() {
-        setStyle("-fx-background-color: grey; -fx-opacity: 30%;");
+        setStyle("-fx-background-color: grey; -fx-opacity: 10%;");
         isHidden = true;
         setLayoutX(1024);
         setLayoutY(235);

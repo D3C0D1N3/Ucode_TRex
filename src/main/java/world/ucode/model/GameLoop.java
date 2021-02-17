@@ -26,6 +26,7 @@ public class GameLoop {
     private boolean isUpKeyPressed;
     private boolean isDownKeyPressed;
     private boolean isAlive = true;
+    private boolean isGameStarted = false;
 
     private final Image charRun;
     private final Image charIdle;
@@ -48,8 +49,10 @@ public class GameLoop {
             public void handle(long now) {
                 if (isAlive) {
                     jumpPlayer();
-                    crouchPlayer();
-                    moveGround();
+                    if (isGameStarted) {
+                        crouchPlayer();
+                        moveGround();
+                    }
                 }
             }
         };
@@ -84,6 +87,7 @@ public class GameLoop {
 
     private void jumpPlayer() {
         if (isUpKeyPressed && player.getTranslateY() == 0) {
+            isGameStarted = true;
             double ty = player.getTranslateY();
 
             Interpolator interpolator = new Interpolator() {
@@ -129,9 +133,6 @@ public class GameLoop {
         }
         else if (element.getX() == 0)
             element1.setX(900);
-        if (element.getX() == 0 || element1.getX() == 0) {
-            System.out.println(element.getX() + " " + element1.getX());
-        }
     }
 
 }
