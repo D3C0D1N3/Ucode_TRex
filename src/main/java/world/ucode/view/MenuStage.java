@@ -4,11 +4,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import world.ucode.controller.MenuButtons;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,7 +20,12 @@ public class MenuStage {
     private final AnchorPane menuPane;
     private final Stage menuStage;
 
-    List<MenuButtons> menuButtons;
+    private MenuSubScene helpSubScene;
+    private MenuSubScene creditsSubScene;
+
+    private MenuSubScene sceneToHide;
+
+    private List<MenuButtons> menuButtons;
 
     public MenuStage() {
         menuPane = new AnchorPane();
@@ -37,31 +42,53 @@ public class MenuStage {
         return menuStage;
     }
 
-    public void initMenuObjects() {
+    private void initMenuObjects() {
         menuButtons = new ArrayList<>();
 
         createBackGroundImage();
         createLogo();
         createButtons();
+        createSubScenes();
     }
 
-    public void initButtonOnScreen(MenuButtons button) {
+    private void initButtonOnScreen(MenuButtons button) {
         button.setLayoutX(350);
         button.setLayoutY(250 + menuButtons.size() * 100);
         menuButtons.add(button);
         menuPane.getChildren().add(button);
     }
 
+    private void showSubScene(MenuSubScene subScene) {
+        if (sceneToHide != null)
+            sceneToHide.moveSubScene();
+
+        subScene.moveSubScene();
+        sceneToHide = subScene;
+    }
+
+    private void createSubScenes() {
+        creditsSubScene = new MenuSubScene(menuButtons);
+        menuPane.getChildren().add(creditsSubScene);
+
+        helpSubScene = new MenuSubScene(menuButtons);
+        menuPane.getChildren().add(helpSubScene);
+    }
+
     public void createButtons() {
         MenuButtons start = new MenuButtons("START");
         initButtonOnScreen(start);
         start.setOnAction(event -> {
-            GameStage game = new GameStage();
-            game.createNewGame(menuStage);
+            GameStage game = new GameStage(menuStage);
         });
+
+        MenuButtons help = new MenuButtons("HELP");
+        initButtonOnScreen(help);
+        help.setOnAction(event -> showSubScene(helpSubScene));
+
         MenuButtons credits = new MenuButtons("CREDITS");
         initButtonOnScreen(credits);
-        credits.setOnAction(event -> System.out.println("D3C0D1N3"));
+        credits.setOnAction(event -> showSubScene(creditsSubScene) );
+
         MenuButtons exit = new MenuButtons("EXIT");
         initButtonOnScreen(exit);
         exit.setOnAction(event -> menuStage.close());

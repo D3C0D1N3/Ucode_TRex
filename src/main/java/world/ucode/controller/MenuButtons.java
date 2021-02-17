@@ -1,4 +1,4 @@
-package world.ucode.view;
+package world.ucode.controller;
 
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;

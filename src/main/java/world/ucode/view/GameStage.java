@@ -2,55 +2,83 @@ package world.ucode.view;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import world.ucode.model.GameLoop;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 public class GameStage {
+
+    private MenuStage menu;
+
     private AnchorPane gamePane;
     private Scene gameScene;
     private Stage gameStage;
 
-    private boolean isUpKeyPressed;
-    private boolean isDownKeyPressed;
-
-    private Rectangle player;
-
     private Stage menuStage;
 
-    public GameStage() {
-        initializeStage();
-        createPlayer();
-        GameLoop loop = new GameLoop(gameScene, gameStage, menuStage, player);
-        loop.createKeyListener();
-        loop.startGameLoop();
+    private Rectangle player;
+    private Rectangle groundRectangle;
+
+    private List<Rectangle> groundList;
+
+    public GameStage(Stage menuStage) {
+        this.menuStage = menuStage;
+
+        initializeGameStage();
     }
 
-    private void initializeStage() {
+    public void initializeGameStage() {
         gamePane = new AnchorPane();
         gameScene = new Scene(gamePane, 900, 720);
         gameStage = new Stage();
         gameStage.setResizable(false);
         gameStage.setScene(gameScene);
-    }
+        gamePane.setStyle("-fx-background-color: black;");
 
-    public void createNewGame(Stage menuStage) {
-        this.menuStage = menuStage;
-        this.menuStage.hide();
+        menuStage.close();
         gameStage.show();
+
+
+        createGround();
+        createPlayer();
+
+        GameLoop loop = new GameLoop(gameScene, gameStage, player, groundList);
+        loop.createKeyListener();
+        loop.startGameLoop();
     }
 
-    public void createPlayer() {
+    private void createPlayer() {
         Image playerIdleAnim = new Image("charIdle.gif");
-        Image playerRunAnim = new Image("charRun.gif");
 
         player = new Rectangle(124, 124);
         player.setFill(new ImagePattern(playerIdleAnim));
-        player.setX(20);
-        player.setY(720 - 124);
+        player.setX(60);
+        player.setY(720 - 186);
+        player.setTranslateY(0);
 
         gamePane.getChildren().add(player);
     }
+
+    private void createGround() {
+        groundList = new ArrayList<>();
+
+        for (int i = 0; i < 2; i++) {
+            Image groundImage = new Image("ground.png");
+            groundRectangle = new Rectangle(900, 124);
+            groundRectangle.setFill(new ImagePattern(groundImage));
+            groundRectangle.setX(i == 0 ? 0 : 900);
+            groundRectangle.setY(720 - 124);
+            gamePane.getChildren().add(groundRectangle);
+            groundList.add(groundRectangle);
+        }
+    }
+
 }
