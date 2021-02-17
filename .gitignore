@@ -1,0 +1,7 @@
+/.idea
+/.gradle
+/dist
+/glade/*.gresource
+/vendor
+/build
+.DS_Store
