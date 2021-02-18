@@ -12,6 +12,7 @@ import world.ucode.model.GameLoop;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 public class GameStage {
@@ -28,6 +29,8 @@ public class GameStage {
     private Rectangle groundRectangle;
 
     private List<Rectangle> groundList;
+
+
 
     public GameStage(Stage menuStage) {
         this.menuStage = menuStage;
@@ -50,7 +53,7 @@ public class GameStage {
         createGround();
         createPlayer();
 
-        GameLoop loop = new GameLoop(gameScene, gameStage, player, groundList);
+        GameLoop loop = new GameLoop(gameScene, gameStage, gamePane, player, groundList);
         loop.createKeyListener();
         loop.startGameLoop();
     }

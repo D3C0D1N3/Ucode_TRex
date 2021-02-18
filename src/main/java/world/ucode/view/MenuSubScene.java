@@ -2,7 +2,9 @@ package world.ucode.view;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.SubScene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.transform.Transform;
 import javafx.util.Duration;
 import world.ucode.controller.MenuButtons;
 
