@@ -77,9 +77,7 @@ public class MenuStage {
     public void createButtons() {
         MenuButtons start = new MenuButtons("START");
         initButtonOnScreen(start);
-        start.setOnAction(event -> {
-            GameStage game = new GameStage(menuStage);
-        });
+        start.setOnAction(event -> new GameStage(menuStage));
 
         MenuButtons help = new MenuButtons("HELP");
         initButtonOnScreen(help);

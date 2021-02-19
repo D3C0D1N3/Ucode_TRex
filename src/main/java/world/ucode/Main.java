@@ -7,7 +7,7 @@ import world.ucode.view.MenuStage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         try {
             MenuStage menu = new MenuStage();
             primaryStage = menu.getMenuStage();

@@ -2,9 +2,7 @@ package world.ucode.view;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.SubScene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.transform.Transform;
 import javafx.util.Duration;
 import world.ucode.controller.MenuButtons;
 
@@ -61,7 +59,7 @@ public class MenuSubScene extends SubScene {
             subSceneTransition.setToX(0);
             subSceneTransition.setToY(0);
 
-            for (MenuButtons NaN: buttons) {
+            for (MenuButtons ignored : buttons) {
                 buttonTransition = new TranslateTransition();
                 buttonTransition.setDuration(Duration.seconds(interval));
                 interval += 0.1;

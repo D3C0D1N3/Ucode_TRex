@@ -2,31 +2,20 @@ package world.ucode.view;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import world.ucode.model.GameLoop;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.regex.Pattern;
 
 public class GameStage {
-
-    private MenuStage menu;
-
     private AnchorPane gamePane;
-    private Scene gameScene;
-    private Stage gameStage;
 
-    private Stage menuStage;
+    private final Stage menuStage;
 
     private Rectangle player;
-    private Rectangle groundRectangle;
 
     private List<Rectangle> groundList;
 
@@ -40,8 +29,8 @@ public class GameStage {
 
     public void initializeGameStage() {
         gamePane = new AnchorPane();
-        gameScene = new Scene(gamePane, 900, 720);
-        gameStage = new Stage();
+        Scene gameScene = new Scene(gamePane, 900, 720);
+        Stage gameStage = new Stage();
         gameStage.setResizable(false);
         gameStage.setScene(gameScene);
         gamePane.setStyle("-fx-background-color: black;");
@@ -53,7 +42,7 @@ public class GameStage {
         createGround();
         createPlayer();
 
-        GameLoop loop = new GameLoop(gameScene, gameStage, gamePane, player, groundList);
+        GameLoop loop = new GameLoop(gameScene, gameStage, player, groundList);
         loop.createKeyListener();
         loop.startGameLoop();
     }
@@ -75,7 +64,7 @@ public class GameStage {
 
         for (int i = 0; i < 2; i++) {
             Image groundImage = new Image("ground.png");
-            groundRectangle = new Rectangle(900, 124);
+            Rectangle groundRectangle = new Rectangle(900, 124);
             groundRectangle.setFill(new ImagePattern(groundImage));
             groundRectangle.setX(i == 0 ? 0 : 900);
             groundRectangle.setY(720 - 124);
