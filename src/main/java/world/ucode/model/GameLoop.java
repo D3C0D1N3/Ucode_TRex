@@ -11,17 +11,20 @@ public class GameLoop {
     private final Stage gameStage;
     private final AnchorPane gamePane;
 
-    private final Player player;
-    private final Ground ground;
-    private final Enemy enemy;
-    private final Score score;
+    private Player player;
+    private Ground ground;
+    private Enemy enemy;
+    private Score score;
+    private Collision collision;
 
-    private boolean Active = false;
+    private boolean alreadyStarted = false;
 
     public GameLoop(Stage gameStage, AnchorPane gamePane) {
         this.gameStage = gameStage;
         this.gamePane = gamePane;
+    }
 
+    public void initGameLoop() {
         ground = new Ground(gamePane);
         ground.createGround();
         player = new Player(gamePane);
@@ -29,6 +32,8 @@ public class GameLoop {
         enemy = new Enemy(gamePane);
         enemy.createEnemy();
         score = new Score(gamePane);
+        score.setScoreLabel();
+        collision = new Collision();
 
         event();
     }
@@ -38,21 +43,33 @@ public class GameLoop {
             if (key.getCode() == KeyCode.SPACE)
                 startGame();
             else if (key.getCode() == KeyCode.Q) {
+                startGame();
+                stopGame();
                 gameStage.close();
                 Menu menu = new Menu();
+                menu.initMenu();
                 menu.getMenuStage().show();
             }
         });
     }
 
     private void startGame() {
-        if (!Active) {
+        if (!alreadyStarted) {
             ground.moveGround();
             enemy.moveEnemy();
             score.startScore();
-            Active = true;
+            alreadyStarted = true;
         }
         player.Jump();
+        collision.checkCollision(player, enemy);
+    }
+
+    public void stopGame() {
+        player.animationTimer.stop();
+        ground.animationTimer.stop();
+        enemy.animationTimer.stop();
+        score.animationTimer.stop();
+        collision.animationTimer.stop();
     }
 
 }

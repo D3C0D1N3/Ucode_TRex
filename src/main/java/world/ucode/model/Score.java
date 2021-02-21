@@ -13,16 +13,18 @@ public class Score {
 
     private final AnchorPane gamePane;
 
-    private final Label label;
+    private Label label;
     private int score = 0;
 
-    private boolean isAlive = true;
+    public AnimationTimer animationTimer;
 
     public Score(AnchorPane gamePane) {
         this.gamePane = gamePane;
+    }
 
+    public void setScoreLabel() {
         label = new Label();
-        label.setLayoutX(700);
+        label.setLayoutX(1000);
         label.setLayoutY(10);
         try {
             label.setFont((Font.loadFont(new FileInputStream("src/main/resources/menu_font.ttf"), 23)));
@@ -35,19 +37,17 @@ public class Score {
     }
 
     public void startScore() {
-        AnimationTimer animationTimer = new AnimationTimer() {
+        animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (isAlive) {
-                    label.setText("score: " + score);
-                    score++;
-                }
+                label.setText("score: " + score);
+                score++;
             }
         };
         animationTimer.start();
     }
 
-    public void stopScore() {
-        isAlive = false;
+    public int getScore() {
+        return score;
     }
 }

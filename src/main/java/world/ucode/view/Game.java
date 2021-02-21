@@ -6,19 +6,16 @@ import javafx.stage.Stage;
 import world.ucode.model.GameLoop;
 
 public class Game {
-    private AnchorPane gamePane;
 
     private final Stage menuStage;
 
     public Game(Stage menuStage) {
         this.menuStage = menuStage;
-
-        initializeGameStage();
     }
 
     public void initializeGameStage() {
-        gamePane = new AnchorPane();
-        Scene gameScene = new Scene(gamePane, 900, 720);
+        AnchorPane gamePane = new AnchorPane();
+        Scene gameScene = new Scene(gamePane, 1280, 720);
         Stage gameStage = new Stage();
         gameStage.setResizable(false);
         gameStage.setScene(gameScene);
@@ -27,7 +24,8 @@ public class Game {
         menuStage.close();
         gameStage.show();
 
-        new GameLoop(gameStage, gamePane);
+        GameLoop gameLoop = new GameLoop(gameStage, gamePane);
+        gameLoop.initGameLoop();
     }
 
 }

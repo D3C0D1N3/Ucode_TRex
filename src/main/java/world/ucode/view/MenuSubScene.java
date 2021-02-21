@@ -19,11 +19,9 @@ public class MenuSubScene extends SubScene {
         super(new AnchorPane(), 600, 400);
 
         this.buttons = buttons;
-
-        initSubScene();
     }
 
-    private void initSubScene() {
+    public void initSubScene() {
         setStyle("-fx-background-color: grey; -fx-opacity: 10%;");
         isHidden = true;
         setLayoutX(1024);

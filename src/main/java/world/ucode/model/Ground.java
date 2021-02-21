@@ -11,8 +11,9 @@ import java.util.ArrayList;
 public class Ground {
 
     private ArrayList<Rectangle> groundList;
-    private AnchorPane gamePane;
-    private AnimationTimer animationTimer;
+    private final AnchorPane gamePane;
+
+    public AnimationTimer animationTimer;
 
     public Ground(AnchorPane gamePane) {
         this.gamePane = gamePane;
@@ -21,11 +22,18 @@ public class Ground {
     public void createGround() {
         groundList = new ArrayList<>();
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             Image groundImage = new Image("ground.png");
             Rectangle groundRectangle = new Rectangle(900, 124);
             groundRectangle.setFill(new ImagePattern(groundImage));
-            groundRectangle.setLayoutX(i == 0 ? 0 : 900);
+
+            if (i == 0)
+                groundRectangle.setLayoutX(0);
+            else if (i == 1)
+                groundRectangle.setLayoutX(900);
+            else
+                groundRectangle.setLayoutX(1800);
+
             groundRectangle.setLayoutY(720 - 124);
             gamePane.getChildren().add(groundRectangle);
             groundList.add(groundRectangle);
@@ -37,9 +45,9 @@ public class Ground {
             @Override
             public void handle(long now) {
                 for (Rectangle i : groundList) {
-                    i.setLayoutX(i.getLayoutX() - 10);
+                    i.setLayoutX(i.getLayoutX() - 15);
                     if (i.getLayoutX() + i.getWidth() <= 0)
-                        i.setLayoutX(900);
+                        i.setLayoutX(1800);
                 }
             }
         };

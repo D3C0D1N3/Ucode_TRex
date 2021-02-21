@@ -10,6 +10,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             Menu menu = new Menu();
+            menu.initMenu();
             primaryStage = menu.getMenuStage();
             primaryStage.show();
         } catch (Exception e) {

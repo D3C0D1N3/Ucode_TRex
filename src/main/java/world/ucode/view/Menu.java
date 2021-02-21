@@ -17,8 +17,10 @@ import java.util.List;
 
 public class Menu {
 
-    private final AnchorPane menuPane;
-    private final Stage menuStage;
+    private Game game;
+
+    private AnchorPane menuPane;
+    private Stage menuStage;
 
     private MenuSubScene helpSubScene;
     private MenuSubScene creditsSubScene;
@@ -27,7 +29,13 @@ public class Menu {
 
     private List<MenuButtons> menuButtons;
 
-    public Menu() {
+    public Menu() { }
+
+    public Stage getMenuStage() {
+        return menuStage;
+    }
+
+    public void initMenu() {
         menuPane = new AnchorPane();
         Scene menuScene = new Scene(menuPane, 900, 720);
         menuStage = new Stage();
@@ -35,14 +43,6 @@ public class Menu {
 
         menuStage.setTitle("Ucode_TRex");
         menuStage.setResizable(false);
-        initMenuObjects();
-    }
-
-    public Stage getMenuStage() {
-        return menuStage;
-    }
-
-    private void initMenuObjects() {
         menuButtons = new ArrayList<>();
 
         createBackGroundImage();
@@ -68,16 +68,21 @@ public class Menu {
 
     private void createSubScenes() {
         creditsSubScene = new MenuSubScene(menuButtons);
+        creditsSubScene.initSubScene();
         menuPane.getChildren().add(creditsSubScene);
 
         helpSubScene = new MenuSubScene(menuButtons);
+        helpSubScene.initSubScene();
         menuPane.getChildren().add(helpSubScene);
     }
 
-    public void createButtons() {
+    private void createButtons() {
         MenuButtons start = new MenuButtons("START");
         initButtonOnScreen(start);
-        start.setOnAction(event -> new Game(menuStage));
+        start.setOnAction(event -> {
+            game = new Game(menuStage);
+            game.initializeGameStage();
+        });
 
         MenuButtons help = new MenuButtons("HELP");
         initButtonOnScreen(help);
@@ -92,7 +97,7 @@ public class Menu {
         exit.setOnAction(event -> menuStage.close());
     }
 
-    public void createBackGroundImage() {
+    private void createBackGroundImage() {
         try {
             Image menuBack = new Image("menu_back.jpg", 900, 720, false, false);
             BackgroundImage background = new BackgroundImage(menuBack, BackgroundRepeat.NO_REPEAT,

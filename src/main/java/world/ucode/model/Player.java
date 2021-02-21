@@ -11,13 +11,14 @@ public class Player {
     private Rectangle player;
     private final AnchorPane gamePane;
 
-    private AnimationTimer animationTimer;
     private int animState = 0;
 
     private int gravity = 0;
 
     private Image playerRunImage;
     private Image playerIdleImage;
+
+    public AnimationTimer animationTimer;
 
     public Player(AnchorPane gamePane) {
         this.gamePane = gamePane;
@@ -28,7 +29,7 @@ public class Player {
 
         player = new Rectangle(124, 124);
         player.setFill(new ImagePattern(playerIdleAnim));
-        player.setLayoutY(60);
+        player.setLayoutX(80);
         player.setLayoutY(720 - 186);
 
         gamePane.getChildren().add(player);
@@ -44,7 +45,7 @@ public class Player {
         }
     }
 
-    public void idleAnimation() {
+    private void idleAnimation() {
         if (animState == 1) {
             animState = 0;
             player.setFill(new ImagePattern(playerIdleImage));
@@ -58,7 +59,7 @@ public class Player {
                 @Override
                 public void handle(long now) {
                     idleAnimation();
-                    player.setLayoutY(player.getLayoutY() - 30 + gravity);
+                    player.setLayoutY(player.getLayoutY() - 35 + gravity);
                     gravity += 2;
                     if (yPreviousPos <= player.getLayoutY()) {
                         runAnimation();
@@ -69,6 +70,10 @@ public class Player {
             };
             animationTimer.start();
         }
+    }
+
+    public double getPlayerYPos() {
+        return player.getLayoutY();
     }
 
 }
