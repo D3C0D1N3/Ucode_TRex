@@ -8,12 +8,12 @@ import java.util.Random;
 
 public class Enemy {
 
-    private AnchorPane gamePane;
+    private final AnchorPane gamePane;
 
     private ImageView[] zombieImage;
     private ImageView[] eyeImage;
 
-    private Random random;
+    private final Random random;
 
     public Enemy(AnchorPane gamePane) {
         this.gamePane = gamePane;

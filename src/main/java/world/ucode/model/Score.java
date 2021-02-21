@@ -11,9 +11,9 @@ import java.io.FileNotFoundException;
 
 public class Score {
 
-    private AnchorPane gamePane;
+    private final AnchorPane gamePane;
 
-    private Label label;
+    private final Label label;
     private int score = 0;
 
     private boolean isAlive = true;

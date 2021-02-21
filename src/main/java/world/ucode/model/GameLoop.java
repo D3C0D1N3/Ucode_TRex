@@ -1,6 +1,5 @@
 package world.ucode.model;
 
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -9,13 +8,13 @@ import world.ucode.view.Menu;
 
 public class GameLoop {
 
-    private Stage gameStage;
-    private AnchorPane gamePane;
+    private final Stage gameStage;
+    private final AnchorPane gamePane;
 
-    private Player player;
-    private Ground ground;
-    private Enemy enemy;
-    private Score score;
+    private final Player player;
+    private final Ground ground;
+    private final Enemy enemy;
+    private final Score score;
 
     private boolean Active = false;
 
@@ -35,15 +34,13 @@ public class GameLoop {
     }
 
     public void event() {
-        gameStage.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent key) {
-                if (key.getCode() == KeyCode.SPACE)
-                    startGame();
-                else if (key.getCode() == KeyCode.Q) {
-                    gameStage.close();
-                    Menu menu = new Menu();
-                    menu.getMenuStage().show();
-                }
+        gameStage.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
+            if (key.getCode() == KeyCode.SPACE)
+                startGame();
+            else if (key.getCode() == KeyCode.Q) {
+                gameStage.close();
+                Menu menu = new Menu();
+                menu.getMenuStage().show();
             }
         });
     }

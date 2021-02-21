@@ -2,7 +2,6 @@ package world.ucode.model;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
