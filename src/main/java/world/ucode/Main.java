@@ -2,14 +2,14 @@ package world.ucode;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import world.ucode.view.MenuStage;
+import world.ucode.view.Menu;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            MenuStage menu = new MenuStage();
+            Menu menu = new Menu();
             primaryStage = menu.getMenuStage();
             primaryStage.show();
         } catch (Exception e) {

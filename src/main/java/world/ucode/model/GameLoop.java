@@ -1,133 +1,61 @@
 package world.ucode.model;
 
-import javafx.animation.*;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import world.ucode.view.MenuStage;
-import java.util.List;
+import world.ucode.view.Menu;
 
 public class GameLoop {
 
-    private final Scene gameScene;
-    private final Stage gameStage;
+    private Stage gameStage;
+    private AnchorPane gamePane;
 
-    private final Rectangle player;
+    private Player player;
+    private Ground ground;
+    private Enemy enemy;
+    private Score score;
 
-    private final List<Rectangle> groundList;
+    private boolean Active = false;
 
-    private boolean isUpKeyPressed;
-    private boolean isDownKeyPressed;
-    private boolean isAlive = true;
-    private boolean isGameActive = false;
-
-    private final Image charRun;
-    private final Image charIdle;
-
-    private int animationState = 0;
-
-    public GameLoop(Scene gameScene, Stage gameStage, Rectangle player, List <Rectangle> groundList) {
-        this.gameScene = gameScene;
+    public GameLoop(Stage gameStage, AnchorPane gamePane) {
         this.gameStage = gameStage;
-        this.groundList = groundList;
-        this.player = player;
+        this.gamePane = gamePane;
 
-        charRun = new Image("charRun.gif");
-        charIdle = new Image("charIdle.gif");
+        ground = new Ground(gamePane);
+        ground.createGround();
+        player = new Player(gamePane);
+        player.createPlayer();
+        enemy = new Enemy(gamePane);
+        enemy.createEnemy();
+        score = new Score(gamePane);
 
+        event();
     }
 
-    public void startGameLoop() {
-        AnimationTimer gameTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (isAlive) {
-                    jumpPlayer();
-                    if (isGameActive) {
-                        crouchPlayer();
-                        moveGround();
-                    }
+    public void event() {
+        gameStage.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent key) {
+                if (key.getCode() == KeyCode.SPACE)
+                    startGame();
+                else if (key.getCode() == KeyCode.Q) {
+                    gameStage.close();
+                    Menu menu = new Menu();
+                    menu.getMenuStage().show();
                 }
-            }
-        };
-        gameTimer.start();
-    }
-
-
-    public void createKeyListener() {
-
-        gameScene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.SPACE) {
-                isUpKeyPressed = true;
-            } else if (event.getCode() == KeyCode.S) {
-                isDownKeyPressed = true;
-            } else if (event.getCode() == KeyCode.Q) {
-                MenuStage menu = new MenuStage();
-                Stage menuStage = menu.getMenuStage();
-                isAlive = false;
-                gameStage.close();
-                menuStage.show();
-            }
-        });
-
-        gameScene.setOnKeyReleased(event -> {
-            if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.SPACE) {
-                isUpKeyPressed = false;
-            } else if (event.getCode() == KeyCode.S) {
-                isDownKeyPressed = false;
             }
         });
     }
 
-    private void jumpPlayer() {
-        if (isUpKeyPressed && player.getTranslateY() == 0) {
-            isGameActive = true;
-            double ty = player.getTranslateY();
-
-            Interpolator interpolator = new Interpolator() {
-                @Override
-                protected double curve(double t) {
-                    return t * (2 - t);
-                }
-            };
-            Timeline timeline = new Timeline(new KeyFrame(Duration.ONE,
-                    new KeyValue(player.translateYProperty(), ty, interpolator)),
-                    new KeyFrame(Duration.seconds(0.3), new KeyValue(player.translateYProperty(), ty - 300,
-                            interpolator)));
-
-            timeline.setCycleCount(2);
-            timeline.setAutoReverse(true);
-
-            timeline.play();
+    private void startGame() {
+        if (!Active) {
+            ground.moveGround();
+            enemy.moveEnemy();
+            score.startScore();
+            Active = true;
         }
+        player.Jump();
     }
 
-    private void crouchPlayer() {
-        if (player.getTranslateY() == 0 && animationState == 0) {
-            player.setFill(new ImagePattern(charRun));
-            animationState = 1;
-        }
-        if (player.getTranslateY() != 0 && animationState == 1) {
-            player.setFill(new ImagePattern(charIdle));
-            animationState = 0;
-        }
-    }
-
-    private void moveGround() {
-        Rectangle element = groundList.get(0);
-        Rectangle element1 = groundList.get(1);
-
-        int gameSpeed = 5;
-        element.setX(element.getX() - gameSpeed);
-        element1.setX(element1.getX() - gameSpeed);
-
-        if (element1.getX() == 0)
-            element.setX(900);
-        else if (element.getX() == 0)
-            element1.setX(900);
-    }
 }

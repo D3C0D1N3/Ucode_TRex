@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuStage {
+public class Menu {
 
     private final AnchorPane menuPane;
     private final Stage menuStage;
@@ -27,7 +27,7 @@ public class MenuStage {
 
     private List<MenuButtons> menuButtons;
 
-    public MenuStage() {
+    public Menu() {
         menuPane = new AnchorPane();
         Scene menuScene = new Scene(menuPane, 900, 720);
         menuStage = new Stage();
@@ -77,7 +77,7 @@ public class MenuStage {
     public void createButtons() {
         MenuButtons start = new MenuButtons("START");
         initButtonOnScreen(start);
-        start.setOnAction(event -> new GameStage(menuStage));
+        start.setOnAction(event -> new Game(menuStage));
 
         MenuButtons help = new MenuButtons("HELP");
         initButtonOnScreen(help);
