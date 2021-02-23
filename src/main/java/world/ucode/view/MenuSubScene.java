@@ -4,7 +4,7 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.SubScene;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
-import world.ucode.controller.MenuButtons;
+import world.ucode.controller.Buttons;
 
 import java.util.List;
 
@@ -12,17 +12,21 @@ public class MenuSubScene extends SubScene {
 
     private boolean isHidden;
 
-    private final List<MenuButtons> buttons;
+    private final List<Buttons> buttons;
 
 
-    public MenuSubScene(List<MenuButtons> buttons) {
+    public MenuSubScene(List<Buttons> buttons) {
         super(new AnchorPane(), 600, 400);
 
         this.buttons = buttons;
     }
 
+    public AnchorPane getPane() {
+        return (AnchorPane) this.getRoot();
+    }
+
     public void initSubScene() {
-        setStyle("-fx-background-color: grey; -fx-opacity: 10%;");
+        setStyle("-fx-background-color: grey; -fx-opacity: 15%;");
         isHidden = true;
         setLayoutX(1024);
         setLayoutY(235);
@@ -42,7 +46,7 @@ public class MenuSubScene extends SubScene {
             subSceneTransition.setToX(-700);
             subSceneTransition.setToY(0);
 
-            for (MenuButtons i : buttons) {
+            for (Buttons i : buttons) {
                 buttonTransition = new TranslateTransition();
                 buttonTransition.setDuration(Duration.seconds(interval));
                 interval += 0.1;
@@ -57,7 +61,7 @@ public class MenuSubScene extends SubScene {
             subSceneTransition.setToX(0);
             subSceneTransition.setToY(0);
 
-            for (MenuButtons ignored : buttons) {
+            for (Buttons ignored : buttons) {
                 buttonTransition = new TranslateTransition();
                 buttonTransition.setDuration(Duration.seconds(interval));
                 interval += 0.1;

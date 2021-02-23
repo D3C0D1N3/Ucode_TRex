@@ -3,8 +3,12 @@ package world.ucode.model;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+
+import java.io.File;
 
 public class Player {
 
@@ -18,6 +22,8 @@ public class Player {
     private Image playerRunImage;
     private Image playerIdleImage;
 
+    private MediaPlayer jumpSound;
+
     public AnimationTimer animationTimer;
 
     public Player(AnchorPane gamePane) {
@@ -25,7 +31,7 @@ public class Player {
     }
 
     public void createPlayer() {
-        Image playerIdleAnim = new Image("charIdle.gif");
+        Image playerIdleAnim = new Image("char_idle.gif");
 
         player = new Rectangle(124, 124);
         player.setFill(new ImagePattern(playerIdleAnim));
@@ -34,8 +40,12 @@ public class Player {
 
         gamePane.getChildren().add(player);
 
-        playerRunImage = new Image("charRun.gif");
-        playerIdleImage = new Image("charIdle.gif");
+        playerRunImage = new Image("char_run.gif");
+        playerIdleImage = new Image("char_idle.gif");
+
+        jumpSound = new MediaPlayer(
+                new Media(
+                        new File("src/main/resources/jump_sound.mp3").toURI().toString()));
     }
 
     private void runAnimation() {
@@ -58,11 +68,13 @@ public class Player {
             animationTimer = new AnimationTimer(){
                 @Override
                 public void handle(long now) {
+                    jumpSound.play();
                     idleAnimation();
                     player.setLayoutY(player.getLayoutY() - 35 + gravity);
                     gravity += 2;
                     if (yPreviousPos <= player.getLayoutY()) {
                         runAnimation();
+                        jumpSound.stop();
                         animationTimer.stop();
                         gravity = 0;
                     }

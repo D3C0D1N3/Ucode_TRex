@@ -5,15 +5,19 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import world.ucode.controller.MenuButtons;
+import world.ucode.controller.Buttons;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Menu {
 
@@ -27,7 +31,11 @@ public class Menu {
 
     private MenuSubScene sceneToHide;
 
-    private List<MenuButtons> menuButtons;
+    private List<Buttons> menuButtons;
+
+    private MediaPlayer menuSound;
+    private MediaPlayer startSound;
+    private MediaPlayer menuButtonSound;
 
     public Menu() { }
 
@@ -49,9 +57,21 @@ public class Menu {
         createLogo();
         createButtons();
         createSubScenes();
+
+        menuSound = new MediaPlayer(
+                new Media(
+                        new File("src/main/resources/menu_sound.mp3").toURI().toString()));
+        startSound = new MediaPlayer(
+                new Media(
+                        new File("src/main/resources/gasp_sound.mp3").toURI().toString()));
+        menuButtonSound = new MediaPlayer(
+                new Media(
+                        new File("src/main/resources/menu_button_sound.mp3").toURI().toString()));
+        menuSound.setCycleCount(-1);
+        menuSound.play();
     }
 
-    private void initButtonOnScreen(MenuButtons button) {
+    private void initButtonOnScreen(Buttons button) {
         button.setLayoutX(350);
         button.setLayoutY(250 + menuButtons.size() * 100);
         menuButtons.add(button);
@@ -69,30 +89,46 @@ public class Menu {
     private void createSubScenes() {
         creditsSubScene = new MenuSubScene(menuButtons);
         creditsSubScene.initSubScene();
+        InfoLabel credits = new InfoLabel("This game is a T-rex implementation.\n" +
+                "This is my first project in this language\nand I still have a lot to develop.\n" +
+                "You can find me on github\nunder the login D3C0D1N3");
+        creditsSubScene.getPane().getChildren().add(credits);
         menuPane.getChildren().add(creditsSubScene);
 
         helpSubScene = new MenuSubScene(menuButtons);
         helpSubScene.initSubScene();
+        InfoLabel help = new InfoLabel("The essence of the game\n is to score a large number of points.\n" +
+                "Press \"W\" to jump and dodge obstacles.\n" +
+                "Beware of screamers)");
+        helpSubScene.getPane().getChildren().add(help);
         menuPane.getChildren().add(helpSubScene);
     }
 
     private void createButtons() {
-        MenuButtons start = new MenuButtons("START");
+        Buttons start = new Buttons("START");
         initButtonOnScreen(start);
         start.setOnAction(event -> {
+            menuSound.stop();
+            startSound.play();
             game = new Game(menuStage);
             game.initializeGameStage();
         });
 
-        MenuButtons help = new MenuButtons("HELP");
+        Buttons help = new Buttons("HELP");
         initButtonOnScreen(help);
-        help.setOnAction(event -> showSubScene(helpSubScene));
+        help.setOnAction(event -> {
+            menuButtonSound.play();
+            showSubScene(helpSubScene);
+        });
 
-        MenuButtons credits = new MenuButtons("CREDITS");
+        Buttons credits = new Buttons("CREDITS");
         initButtonOnScreen(credits);
-        credits.setOnAction(event -> showSubScene(creditsSubScene) );
+        credits.setOnAction(event -> {
+            menuButtonSound.play();
+            showSubScene(creditsSubScene);
+        } );
 
-        MenuButtons exit = new MenuButtons("EXIT");
+        Buttons exit = new Buttons("EXIT");
         initButtonOnScreen(exit);
         exit.setOnAction(event -> menuStage.close());
     }

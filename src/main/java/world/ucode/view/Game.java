@@ -1,7 +1,7 @@
 package world.ucode.view;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import world.ucode.model.GameLoop;
 
