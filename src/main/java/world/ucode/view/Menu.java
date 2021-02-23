@@ -63,7 +63,7 @@ public class Menu {
                         new File("src/main/resources/menu_sound.mp3").toURI().toString()));
         startSound = new MediaPlayer(
                 new Media(
-                        new File("src/main/resources/gasp_sound.mp3").toURI().toString()));
+                        new File("src/main/resources/gasp_sound.wav").toURI().toString()));
         menuButtonSound = new MediaPlayer(
                 new Media(
                         new File("src/main/resources/menu_button_sound.mp3").toURI().toString()));

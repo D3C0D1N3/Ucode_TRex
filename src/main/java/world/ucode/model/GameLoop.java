@@ -1,11 +1,13 @@
 package world.ucode.model;
 
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import world.ucode.view.GameOver;
 import world.ucode.view.Menu;
 
@@ -72,6 +74,7 @@ public class GameLoop {
                 menu.getMenuStage().show();
             }
         });
+        gameStage.setOnCloseRequest(event -> stopGame());
     }
 
     private void startGame() {

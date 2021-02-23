@@ -33,7 +33,7 @@ public class Screamer {
             @Override
             public void run() {
                 standartBack();
-                if (score.getScore() > 1000 && random.nextInt(100) <= 7) {
+                if (score.getScore() > 1000 && random.nextInt(100) <= 9) {
                     ImageView[] enemyImage = enemy.getEnemy();
                     for (ImageView i : enemyImage) {
                         if (i.getLayoutX() <= 200) {
