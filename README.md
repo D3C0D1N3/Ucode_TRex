@@ -1,4 +1,5 @@
 Implementation of T-Rex in horror style.
 
-Use ````bash
+````bash
     ./gradlew run - to run this solution
+````
