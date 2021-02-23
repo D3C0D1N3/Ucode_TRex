@@ -132,15 +132,15 @@ public class GameOver {
     }
 
     private void createLogo() {
-        Label logo = new Label("You reached: " + score.getScore());
+        Label logo = new Label("GAME OVER\nYou reached: " + score.getScore());
         try {
             logo.setStyle("-fx-text-fill: grey;");
-            logo.setFont((Font.loadFont(new FileInputStream("src/main/resources/menu_font.ttf"), 46)));
+            logo.setFont((Font.loadFont(new FileInputStream("src/main/resources/menu_font.ttf"), 36)));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         logo.setLayoutX(200);
-        logo.setLayoutY(120);
+        logo.setLayoutY(50);
 
         logo.setOnMouseEntered(mouseEvent -> logo.setEffect(new DropShadow(40, Color.BLACK)));
         logo.setOnMouseExited(mouseEvent -> logo.setEffect(null));

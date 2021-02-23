@@ -23,7 +23,7 @@ public class Cloud {
     public void initCloudsOnScreen() {
         random = new Random();
         int y = 20;
-        clouds = new ImageView[3];
+        clouds = new ImageView[4];
 
         for (int i = 0; i < clouds.length; i++) {
             clouds[i] = new ImageView("cloud.gif");
