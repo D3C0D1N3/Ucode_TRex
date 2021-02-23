@@ -1,8 +1,8 @@
-module Ucode_TRex.main {
+module Ucode.TRex.main {
     exports world.ucode;
+    exports world.ucode.view;
     exports world.ucode.controller;
     exports world.ucode.model;
-    exports world.ucode.view;
 
     requires javafx.controls;
     requires javafx.graphics;

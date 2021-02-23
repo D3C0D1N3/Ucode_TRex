@@ -20,4 +20,4 @@ javafx {
     modules = ['javafx.controls', 'javafx.media', 'javafx.graphics']
 }
 
-mainClassName = 'Ucode_TRex.main/world.ucode.Main'
+mainClassName = 'Ucode.TRex.main/world.ucode.Main'

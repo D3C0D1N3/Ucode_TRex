@@ -105,6 +105,7 @@ public class GameOver {
         start.setOnAction(event -> {
             secondOverSound.stop();
             overSound.stop();
+
             Game game = new Game(overStage);
             game.initializeGameStage();
         });

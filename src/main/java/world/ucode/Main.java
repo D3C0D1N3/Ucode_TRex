@@ -11,8 +11,7 @@ public class Main extends Application {
         try {
             Menu menu = new Menu();
             menu.initMenu();
-            primaryStage = menu.getMenuStage();
-            primaryStage.show();
+            menu.getMenuStage().show();
         } catch (Exception e) {
             e.printStackTrace();
         }
