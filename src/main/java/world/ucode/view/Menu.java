@@ -89,22 +89,22 @@ public class Menu {
     private void createSubScenes() {
         creditsSubScene = new MenuSubScene(menuButtons);
         creditsSubScene.initSubScene();
-        InfoLabel credits = new InfoLabel("""
-                This game is a T-rex implementation.
-                This is my first project in this language
-                and I still have a lot to develop.
-                You can find me on github
-                under the login D3C0D1N3""");
+        InfoLabel credits = new InfoLabel(
+                "This game is a T-rex implementation.\n"+
+                "This is my first project in this language\n"+
+                "and I still have a lot to develop.\n"+
+                "You can find me on github\n"+
+                "under the login D3C0D1N3\n");
         creditsSubScene.getPane().getChildren().add(credits);
         menuPane.getChildren().add(creditsSubScene);
 
         helpSubScene = new MenuSubScene(menuButtons);
         helpSubScene.initSubScene();
-        InfoLabel help = new InfoLabel("""
-                The essence of the game
-                 is to score a large number of points.
-                Press "W" to jump and dodge obstacles.
-                Beware of screamers)""");
+        InfoLabel help = new InfoLabel(
+                "The essence of the game\n"+
+                "is to score a large number of points.\n"+
+                "Press W to jump and dodge obstacles.\n"+
+                "Beware of screamers)\n");
         helpSubScene.getPane().getChildren().add(help);
         menuPane.getChildren().add(helpSubScene);
     }
