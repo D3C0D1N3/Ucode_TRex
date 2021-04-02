@@ -1,5 +1,5 @@
-**Ucode_TRex**
-Implementation of T-Rex in horror style.
+**Ucode_TRex**<br>
+Implementation of chrome T-Rex in horror style.
 
 **INSTRUCTION**
 ````bash
