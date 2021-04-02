@@ -1,5 +1,4 @@
 Implementation of T-Rex in horror style.
-My first java desktop application on javafx.
 
 **INSTRUCTION**
 ````bash
