@@ -6,3 +6,5 @@ git clone [LINK] Ucode_TRex
 ./gradlew run - to run this solution
 ````
 ![Demo menu](gitres/menu.gif)
+![Demo game](gitres/game.gif)
+![Demo gameover](gitres/gameover.png)
