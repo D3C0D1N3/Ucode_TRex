@@ -3,7 +3,7 @@ My first java desktop application on javafx.
 
 **INSTRUCTION**
 ````bash
-git clone *https://github.com/yurijmrozek/Ucode_TRex*
+git clone https://github.com/yurijmrozek/Ucode_TRex
 
 ./gradlew build
 ./gradlew run - run solution
